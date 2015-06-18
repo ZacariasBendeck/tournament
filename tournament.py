@@ -12,14 +12,34 @@ def connect():
 
 
 def deleteMatches():
+    db = connect()
+    c = db.cursor()
+    query = 'delete from matches;'
+    
+    c.execute(query)
+    db.close()
+    
     """Remove all the match records from the database."""
 
 
 def deletePlayers():
+    db = connect()
+    c = db.cursor()
+    query = 'delete from players;'
+    
+    c.execute(query)
+    db.close()
     """Remove all the player records from the database."""
 
 
 def countPlayers():
+    db = connect()
+    c = db.cursor()
+    query = 'select count(name) from players;'
+    c.execute(query)
+    count = c.fetchone()
+    db.close()
+    return count[0]
     """Returns the number of players currently registered."""
 
 

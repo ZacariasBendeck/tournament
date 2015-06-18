@@ -6,4 +6,12 @@
 -- You can write comments in this file by starting them with two dashes, like
 -- these lines here.
 
+create database tournament;
+
+create table players(int serial, name text[]);
+
+create table matches(winner int, loser int);
+
+
+
 

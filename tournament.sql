@@ -8,7 +8,7 @@
 
 create database tournament;
 
-create table players(int serial, name text[]);
+create table players(int serial, name text);
 
 create table matches(winner int, loser int);
 

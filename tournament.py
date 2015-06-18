@@ -15,8 +15,8 @@ def deleteMatches():
     db = connect()
     c = db.cursor()
     query = 'delete from matches;'
-    
     c.execute(query)
+    db.commit()
     db.close()
     
     """Remove all the match records from the database."""
@@ -26,8 +26,8 @@ def deletePlayers():
     db = connect()
     c = db.cursor()
     query = 'delete from players;'
-    
     c.execute(query)
+    db.commit()
     db.close()
     """Remove all the player records from the database."""
 
@@ -44,6 +44,13 @@ def countPlayers():
 
 
 def registerPlayer(name):
+    db = connect()
+    c = db.cursor()
+    query = 'insert into players(name) values(%s);'
+    data = (name,)
+    c.execute(query,data)
+    db.commit()
+    db.close()
     """Adds a player to the tournament database.
   
     The database assigns a unique serial id number for the player.  (This

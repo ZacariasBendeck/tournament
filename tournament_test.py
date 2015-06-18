@@ -55,7 +55,7 @@ def testRegisterCountDelete():
         raise ValueError("After deleting, countPlayers should return zero.")
     print "5. Players can be registered and deleted."
 
-'''
+
 def testStandingsBeforeMatches():
     deleteMatches()
     deletePlayers()
@@ -78,7 +78,7 @@ def testStandingsBeforeMatches():
                          "even if they have no matches played.")
     print "6. Newly registered players appear in the standings with no matches."
 
-
+'''
 def testReportMatches():
     deleteMatches()
     deletePlayers()
@@ -131,7 +131,7 @@ if __name__ == '__main__':
     testCount()
     testRegister()
     testRegisterCountDelete()
-    #testStandingsBeforeMatches()
+    testStandingsBeforeMatches()
     #testReportMatches()
     #testPairings()
     print "Success!  All tests pass!"

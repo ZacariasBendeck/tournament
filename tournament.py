@@ -46,7 +46,7 @@ def countPlayers():
 def registerPlayer(name):
     db = connect()
     c = db.cursor()
-    query = 'insert into players(name) values(%s);'
+    query = 'insert into players(name,wins,losses) values(%s,0,0);'
     data = (name,)
     c.execute(query,data)
     db.commit()
@@ -62,6 +62,14 @@ def registerPlayer(name):
 
 
 def playerStandings():
+    db = connect()
+    c = db.cursor()
+    query = 'select * from players order by wins;'
+    c.execute(query)
+    standings = c.fetchall() 
+    db.close()
+    print standings
+    return standings
     """Returns a list of the players and their win records, sorted by wins.
 
     The first entry in the list should be the player in first place, or a player

@@ -78,7 +78,7 @@ def testStandingsBeforeMatches():
                          "even if they have no matches played.")
     print "6. Newly registered players appear in the standings with no matches."
 
-'''
+
 def testReportMatches():
     deleteMatches()
     deletePlayers()
@@ -86,11 +86,13 @@ def testReportMatches():
     registerPlayer("Boots O'Neal")
     registerPlayer("Cathy Burton")
     registerPlayer("Diane Grant")
-    standings = playerStandings()
+    standings = playerStandings()  
     [id1, id2, id3, id4] = [row[0] for row in standings]
+    
     reportMatch(id1, id2)
     reportMatch(id3, id4)
     standings = playerStandings()
+    
     for (i, n, w, m) in standings:
         if m != 1:
             raise ValueError("Each player should have one match recorded.")
@@ -123,7 +125,7 @@ def testPairings():
         raise ValueError(
             "After one match, players with one win should be paired.")
     print "8. After one match, players with one win are paired."
-'''
+
 
 if __name__ == '__main__':
     testDeleteMatches()
@@ -132,8 +134,8 @@ if __name__ == '__main__':
     testRegister()
     testRegisterCountDelete()
     testStandingsBeforeMatches()
-    #testReportMatches()
-    #testPairings()
+    testReportMatches()
+    testPairings()
     print "Success!  All tests pass!"
 
 

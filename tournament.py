@@ -46,7 +46,7 @@ def countPlayers():
 def registerPlayer(name):
     db = connect()
     c = db.cursor()
-    query = 'insert into players(name,wins,losses) values(%s,0,0);'
+    query = 'insert into players(name,wins,matches) values(%s,0,0);'
     data = (name,)
     c.execute(query,data)
     db.commit()
@@ -64,11 +64,10 @@ def registerPlayer(name):
 def playerStandings():
     db = connect()
     c = db.cursor()
-    query = 'select * from players order by wins;'
+    query = 'select * from players order by wins desc;'
     c.execute(query)
     standings = c.fetchall() 
     db.close()
-    print standings
     return standings
     """Returns a list of the players and their win records, sorted by wins.
 
@@ -85,6 +84,22 @@ def playerStandings():
 
 
 def reportMatch(winner, loser):
+    db = connect()
+    c = db.cursor()
+    query = 'insert into matches(winner,loser) values(%s,%s);'
+    data = (winner,loser)
+    c.execute(query,data)
+    query = 'update players set wins = wins + 1 where int = ' +str(winner)+';'
+    c.execute(query)
+    query = 'update players set matches = matches + 1 where int = ' +str(loser)+';'
+    c.execute(query)
+    query = 'update players set matches = matches + 1 where int = ' +str(winner)+';'
+    c.execute(query)
+    db.commit()
+    db.close()
+    #must update the total wins table now
+       
+    
     """Records the outcome of a single match between two players.
 
     Args:
@@ -94,6 +109,15 @@ def reportMatch(winner, loser):
  
  
 def swissPairings():
+    standings = playerStandings()
+    pairings = []
+    i = 0
+    while i < len(standings):
+        pairings.append((standings[i][0],standings[i][1],standings[i+1][0],standings[i+1][1]))
+        i+=2
+    return pairings
+
+    
     """Returns a list of pairs of players for the next round of a match.
   
     Assuming that there are an even number of players registered, each player

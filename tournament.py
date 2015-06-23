@@ -97,7 +97,7 @@ def reportMatch(winner, loser):
     c.execute(query)
     db.commit()
     db.close()
-    #must update the total wins table now
+
        
     
     """Records the outcome of a single match between two players.

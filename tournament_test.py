@@ -3,6 +3,21 @@
 # Test cases for tournament.py
 
 from tournament import *
+from pprint import pprint
+
+already_played = []
+#dummy list while for already played function while i figure it out on sql
+#first item is the player id, second item is the players he has already played
+def updatePlayed(winner, loser, already_played):
+    pprint(already_played)
+    print 'wtf'
+    for e in already_played:
+        if e == winner:
+            print e, 'this shit ran!!!'
+    pass
+    
+    #will record who has already played who temporarily
+    
 
 def testDeleteMatches():
     deleteMatches()
@@ -125,17 +140,52 @@ def testPairings():
         raise ValueError(
             "After one match, players with one win should be paired.")
     print "8. After one match, players with one win are paired."
+ 
+def testNoRematch():
+    already_played = []
+    deleteMatches()
+    deletePlayers()
+    registerPlayer("Twilight Sparkle")
+    registerPlayer("Fluttershy")
+    registerPlayer("Applejack")
+    registerPlayer("Pinkie Pie") 
+    registerPlayer("Bruno Walton")
+    registerPlayer("Boots O'Neal")
+    registerPlayer("Cathy Burton")
+    registerPlayer("Diane Grant")
+    standings = playerStandings()
+    [id1, id2, id3, id4, id5, id6, id7, id8] = [row[0] for row in standings]
+    for row in standings:
+        already_played.append({row[0]:None}) 
+    pprint(already_played)
+    reportMatch(id1, id2)
+    updatePlayed(id1, id2, already_played)
+    
+    reportMatch(id3, id4)
+    reportMatch(id5, id6)
+    reportMatch(id7, id8)
+    pairings = swissPairings()
+    pprint(pairings)
+    
+    reportMatch(id1, id5)
+    reportMatch(id3, id7)
+    reportMatch(id6, id4)
+    reportMatch(id2, id8)
+    pairings = swissPairings()
+    pprint(pairings)
+    pprint(playerStandings())
 
 
 if __name__ == '__main__':
-    testDeleteMatches()
-    testDelete()
-    testCount()
-    testRegister()
-    testRegisterCountDelete()
-    testStandingsBeforeMatches()
-    testReportMatches()
-    testPairings()
+    #testDeleteMatches()
+    #testDelete()
+    #testCount()
+    #testRegister()
+    #testRegisterCountDelete()
+    #testStandingsBeforeMatches()
+    #testReportMatches()
+    #testPairings()
+    testNoRematch()
     print "Success!  All tests pass!"
 
 

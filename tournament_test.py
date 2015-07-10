@@ -12,6 +12,7 @@ def updatePlayed(winner, loser, already_played):
     pprint(already_played)
     print 'wtf'
     for e in already_played:
+        print e
         if e == winner:
             print e, 'this shit ran!!!'
     pass
@@ -158,12 +159,19 @@ def testNoRematch():
     for row in standings:
         already_played.append({row[0]:None}) 
     pprint(already_played)
+    
     reportMatch(id1, id2)
-    updatePlayed(id1, id2, already_played)
+    #updatePlayed(id1, id2)
     
     reportMatch(id3, id4)
+    #updatePlayed(id3, id4)
+
     reportMatch(id5, id6)
+    #updatePlayed(id5, id6)
+
     reportMatch(id7, id8)
+    #updatePlayed(id7, id8)
+
     pairings = swissPairings()
     pprint(pairings)
     
@@ -174,6 +182,7 @@ def testNoRematch():
     pairings = swissPairings()
     pprint(pairings)
     pprint(playerStandings())
+
 
 
 if __name__ == '__main__':

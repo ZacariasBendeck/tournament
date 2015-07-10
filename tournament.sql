@@ -12,6 +12,8 @@ create table players(int serial, name text, wins int, matches int);
 
 create table matches(winner int, loser int);
 
+create table already_played(name text, played text);
+
 
 
 

@@ -109,11 +109,33 @@ def reportMatch(winner, loser):
  
  
 def swissPairings():
+    db = connect()
+    c = db.cursor()
+    query = 'select winner, loser from matches'
+    c.execute(query)
+    existing_players = c.fetchall()
+    print existing_players
+
+
+
+
     standings = playerStandings()
     pairings = []
+
     i = 0
     while i < len(standings):
+
         pairings.append((standings[i][0],standings[i][1],standings[i+1][0],standings[i+1][1]))
+        print 'We paired ' + standings[i][1] + ' with ' + standings[i+1][1]
+        pair = (standings[i][0], standings[i+1][0])
+        for e in existing_players:
+            print e, pair
+          
+            if e == standings[i][0]:
+                print e, standings[i][0]
+                print 'these players already played together!!!'
+
+
         i+=2
     return pairings
 
@@ -132,5 +154,29 @@ def swissPairings():
         id2: the second player's unique id
         name2: the second player's name
     """
+'''
+def updatePlayed(playerA, playerB):
+    db = connect()
+    c = db.cursor()
+    query = 'select name from already_played'
+    c.execute(query)
+    existing_players = c.fetchall()
+    print existing_players
+
+    
+    query = 'insert into already_played(name,played) values(%s,%s);'
+    data = (playerA,playerB)
+    c.execute(query,data)
+    
+    query = 'update players set wins = wins + 1 where int = ' +str(winner)+';'
+    c.execute(query)
+    query = 'update players set matches = matches + 1 where int = ' +str(loser)+';'
+    c.execute(query)
+    query = 'update players set matches = matches + 1 where int = ' +str(winner)+';'
+    c.execute(query)
+    db.commit()
+    db.close()
+'''
+
 
 
